@@ -24,6 +24,28 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            {
+              "fontFamily": "OpenSans",
+              "fontDefinitions": [
+                {
+                  "path": "./assets/fonts/OpenSans-Regular.ttf",
+                  "weight": 400
+                },
+                {
+                  "path": "./assets/fonts/OpenSans-Bold.ttf",
+                  "weight": 700
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    ]
   }
 }

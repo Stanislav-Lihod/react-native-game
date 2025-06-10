@@ -10,22 +10,43 @@ import StartGame from "./screens/StartGame";
 import Game from "./screens/Game";
 import GameOver from "./screens/GameOver";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
   const [entredNumber, setEntredNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(false);
+  const [counterAttempts, setCounterAttempts] = useState(0);
+
+  function restartHandler() {
+    setEntredNumber(null);
+    setGameIsOver(false);
+    setCounterAttempts(0);
+  }
 
   let screen = <StartGame onSetEntredNumber={setEntredNumber} />;
 
+  // if (!entredNumber) {
+  //   screen = <StartGame onSetEntredNumber={setEntredNumber} />;
+  // }
+
   if (entredNumber) {
     screen = (
-      <Game entredNumber={entredNumber} onSetGameIsOver={setGameIsOver} />
+      <Game
+        entredNumber={entredNumber}
+        onSetGameIsOver={setGameIsOver}
+        onSetCounter={setCounterAttempts}
+      />
     );
   }
 
   if (gameIsOver) {
-    screen = <GameOver />;
+    screen = (
+      <GameOver
+        onRestart={restartHandler}
+        userNumber={entredNumber}
+        counter={counterAttempts}
+      />
+    );
   }
 
   return (

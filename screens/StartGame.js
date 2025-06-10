@@ -1,4 +1,4 @@
-import { Alert, Keyboard, StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constans/Colors";
@@ -28,20 +28,29 @@ export default function StartGame({ onSetEntredNumber }) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        value={value}
-        onChangeText={handlerSetValue}
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-      />
-      <View style={styles.actions}>
-        <View style={styles.button}>
-          <PrimaryButton onPressHandler={handlerReset}>Reset</PrimaryButton>
-        </View>
-        <View style={styles.button}>
-          <PrimaryButton onPressHandler={handlerConfirm}>Confirm</PrimaryButton>
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        Enter a number between <Text style={styles.textItem}>1</Text> and{" "}
+        <Text style={styles.textItem}>99</Text> and your phone will try to guess
+        it.
+      </Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={value}
+          onChangeText={handlerSetValue}
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+        />
+        <View style={styles.actions}>
+          <View style={styles.button}>
+            <PrimaryButton onPressHandler={handlerReset}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.button}>
+            <PrimaryButton onPressHandler={handlerConfirm}>
+              Confirm
+            </PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -49,6 +58,10 @@ export default function StartGame({ onSetEntredNumber }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 40,
+    gap: 32,
+  },
   inputContainer: {
     padding: 16,
     backgroundColor: Colors.primary500,
@@ -77,5 +90,16 @@ const styles = StyleSheet.create({
   },
   button: {
     flexGrow: 1,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 500,
+    textAlign: "center",
+    color: "white",
+  },
+  textItem: {
+    color: Colors.accent,
+    fontWeight: 700,
+    fontSize: 18,
   },
 });

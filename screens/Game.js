@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import TextTitle from "../components/TextTitle";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
@@ -13,10 +13,17 @@ function generateRandomBetween(min, max, exclude) {
 let minBoundry = 1;
 let maxBoundry = 100;
 
-export default function Game({ entredNumber, onSetGameIsOver }) {
+export default function Game({ entredNumber, onSetGameIsOver, onSetCounter }) {
   const [number, setNumber] = useState(() => {
     return generateRandomBetween(minBoundry, maxBoundry, entredNumber);
   });
+
+  useEffect(() => {
+    console.log(entredNumber);
+
+    minBoundry = 1;
+    maxBoundry = 100;
+  }, [entredNumber]);
 
   const [allVariables, setAllVariables] = useState([]);
 
@@ -44,6 +51,7 @@ export default function Game({ entredNumber, onSetGameIsOver }) {
   useEffect(() => {
     if (number === entredNumber) {
       onSetGameIsOver(true);
+      onSetCounter(allVariables.length);
     }
   }, [number, entredNumber, onSetGameIsOver]);
 
@@ -74,15 +82,19 @@ export default function Game({ entredNumber, onSetGameIsOver }) {
           </View>
         </View>
       </View>
-      <View style={styles.items}>
-        {allVariables.map((item, i) => (
+      <FlatList
+        style={styles.items}
+        data={allVariables}
+        renderItem={({ item, index }) => (
           <View style={styles.item}>
-            <Text style={styles.itemText} key={i}>
-              {item}
+            <Text style={styles.itemTextBold}>#{index}</Text>
+            <Text style={styles.itemText}>
+              Opponent's guess: <Text style={styles.itemTextBold}>{item}</Text>
             </Text>
           </View>
-        ))}
-      </View>
+        )}
+        keyExtractor={(item) => item}
+      />
     </View>
   );
 }
@@ -118,17 +130,23 @@ const styles = StyleSheet.create({
   },
   items: {
     width: "100%",
-    gap: 4,
   },
   item: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     width: "100%",
     borderRadius: 28,
-    backgroundColor: "white",
-    padding: 8,
+    backgroundColor: Colors.accent,
+    padding: 12,
+    marginBottom: 8,
   },
   itemText: {
     fontWeight: 600,
+    fontSize: 14,
+  },
+  itemTextBold: {
     fontSize: 16,
-    textAlign: "center",
+    fontWeight: 800,
   },
 });
