@@ -1,4 +1,11 @@
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import TextTitle from "../components/TextTitle";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
@@ -19,8 +26,6 @@ export default function Game({ entredNumber, onSetGameIsOver, onSetCounter }) {
   });
 
   useEffect(() => {
-    console.log(entredNumber);
-
     minBoundry = 1;
     maxBoundry = 100;
   }, [entredNumber]);
@@ -98,6 +103,8 @@ export default function Game({ entredNumber, onSetGameIsOver, onSetCounter }) {
     </View>
   );
 }
+
+const device = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {

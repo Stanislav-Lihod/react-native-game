@@ -1,4 +1,12 @@
-import { Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constans/Colors";
@@ -28,32 +36,36 @@ export default function StartGame({ onSetEntredNumber }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Enter a number between <Text style={styles.textItem}>1</Text> and{" "}
-        <Text style={styles.textItem}>99</Text> and your phone will try to guess
-        it.
-      </Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          value={value}
-          onChangeText={handlerSetValue}
-          style={styles.numberInput}
-          maxLength={2}
-          keyboardType="number-pad"
-        />
-        <View style={styles.actions}>
-          <View style={styles.button}>
-            <PrimaryButton onPressHandler={handlerReset}>Reset</PrimaryButton>
-          </View>
-          <View style={styles.button}>
-            <PrimaryButton onPressHandler={handlerConfirm}>
-              Confirm
-            </PrimaryButton>
+    // <ScrollView style={{ flex: 1 }}>
+    <KeyboardAvoidingView behavior="position">
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          Enter a number between <Text style={styles.textItem}>1</Text> and{" "}
+          <Text style={styles.textItem}>99</Text> and your phone will try to
+          guess it.
+        </Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            value={value}
+            onChangeText={handlerSetValue}
+            style={styles.numberInput}
+            maxLength={2}
+            keyboardType="number-pad"
+          />
+          <View style={styles.actions}>
+            <View style={styles.button}>
+              <PrimaryButton onPressHandler={handlerReset}>Reset</PrimaryButton>
+            </View>
+            <View style={styles.button}>
+              <PrimaryButton onPressHandler={handlerConfirm}>
+                Confirm
+              </PrimaryButton>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
+    // </ScrollView>
   );
 }
 
